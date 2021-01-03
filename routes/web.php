@@ -27,7 +27,7 @@ Route::get('storage-all', function () {
 
 // media
 Route::post('/users/upload', function (Request $request) {
-    if($request->hasFile('file')) {
+    if ($request->hasFile('file')) {
         $user = User::find(1);
         $user->addMedia($request->file('file'))->toMediaCollection('avatars');
     } else {
@@ -42,7 +42,7 @@ Route::get('/show-img', function (Request $request) {
     $fileContent = Storage::disk('minio')->get($remotePath);
     Storage::disk('local')->put($localPath, $fileContent);
 
-    $fn = function($fileName = '') {
+    $fn = function ($fileName = '') {
         $bashPath = 'public' . DIRECTORY_SEPARATOR . 'cache';
         return $fileName ? ($bashPath . DIRECTORY_SEPARATOR . $fileName) : $bashPath;
     };
@@ -52,4 +52,8 @@ Route::get('/show-img', function (Request $request) {
     );
 
     return response()->file($imagePathResult);
+});
+
+Route::get('storage-test', function () {
+    return Storage::disk('minio')->delete('pic-5.jpg');
 });
