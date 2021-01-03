@@ -39,6 +39,13 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'use_path_style_endpoint' => true,
         ],
+
+        // 'media' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/public/media'),
+        //     'url' => env('APP_URL').'/storage/media',
+        //     'visibility' => 'public',
+        // ],
     ],
 
     'links' => [
