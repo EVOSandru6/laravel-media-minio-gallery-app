@@ -34,3 +34,22 @@ Route::post('/users/upload', function (Request $request) {
         throw new DomainException('oops');
     }
 })->name('users');
+
+Route::get('/show-img', function (Request $request) {
+    $remotePath = '4/pic-1.jpg';
+    $localPath = '4/pic-1.jpg';
+
+    $fileContent = Storage::disk('minio')->get($remotePath);
+    Storage::disk('local')->put($localPath, $fileContent);
+
+    $fn = function($fileName = '') {
+        $bashPath = 'public' . DIRECTORY_SEPARATOR . 'cache';
+        return $fileName ? ($bashPath . DIRECTORY_SEPARATOR . $fileName) : $bashPath;
+    };
+
+    $imagePathResult = storage_path(
+        'app' . DIRECTORY_SEPARATOR . $fn($localPath)
+    );
+
+    return response()->file($imagePathResult);
+});

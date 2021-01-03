@@ -18,10 +18,10 @@
         @php $user = \App\Models\User::find(1); @endphp
         @php $allImages = $user->getMedia('avatars')->all(); @endphp
         @php // dd($allImages); @endphp
-        @php $imgA = $allImages[1]->getUrl() @endphp
-{{--        @php $imgx = $allImages[1]->getUrl('thumb') @endphp--}}
+        @php $imgFull = $allImages[3]->getUrl() @endphp
+        @php $imgSmall = $allImages[3]->getUrl('thumb') @endphp
 
-        {{ $imgx }}
+        {{ $imgSmall }}
 
         <form action="{{route('users') }}" method="post" enctype="multipart/form-data">
             @csrf
